@@ -1,0 +1,587 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Starward.RPC/1.0.0": {
+        "dependencies": {
+          "Grpc.AspNetCore": "2.80.0",
+          "Microsoft.Extensions.Http.Polly": "10.0.9",
+          "Polly": "8.7.0",
+          "Serilog.AspNetCore": "10.0.0",
+          "Starward.Core": "1.0.0",
+          "Starward.NativeLib": "0.3.1",
+          "Starward.Setup.Core": "1.0.0",
+          "Vanara.PInvoke.Kernel32": "5.0.5",
+          "ZstdSharp.Port": "0.8.8"
+        },
+        "runtime": {
+          "Starward.RPC.dll": {}
+        }
+      },
+      "Google.Protobuf/3.31.1": {
+        "runtime": {
+          "lib/net5.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.31.1.0",
+            "fileVersion": "3.31.1.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore/2.80.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.31.1",
+          "Grpc.AspNetCore.Server.ClientFactory": "2.80.0"
+        }
+      },
+      "Grpc.AspNetCore.Server/2.80.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.80.0"
+        },
+        "runtime": {
+          "lib/net10.0/Grpc.AspNetCore.Server.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore.Server.ClientFactory/2.80.0": {
+        "dependencies": {
+          "Grpc.AspNetCore.Server": "2.80.0",
+          "Grpc.Net.ClientFactory": "2.80.0"
+        },
+        "runtime": {
+          "lib/net10.0/Grpc.AspNetCore.Server.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Core.Api/2.80.0": {
+        "runtime": {
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Client/2.80.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.80.0"
+        },
+        "runtime": {
+          "lib/net10.0/Grpc.Net.Client.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Net.ClientFactory/2.80.0": {
+        "dependencies": {
+          "Grpc.Net.Client": "2.80.0"
+        },
+        "runtime": {
+          "lib/net10.0/Grpc.Net.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Common/2.80.0": {
+        "dependencies": {
+          "Grpc.Core.Api": "2.80.0"
+        },
+        "runtime": {
+          "lib/net10.0/Grpc.Net.Common.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyModel/10.0.0": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.52411"
+          }
+        }
+      },
+      "Microsoft.Extensions.Http.Polly/10.0.9": {
+        "dependencies": {
+          "Polly": "8.7.0",
+          "Polly.Extensions.Http": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.dll": {
+            "assemblyVersion": "10.0.9.0",
+            "fileVersion": "10.0.926.27113"
+          }
+        }
+      },
+      "Polly/8.7.0": {
+        "dependencies": {
+          "Polly.Core": "8.7.0"
+        },
+        "runtime": {
+          "lib/net6.0/Polly.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.7.0.5801"
+          }
+        }
+      },
+      "Polly.Core/8.7.0": {
+        "runtime": {
+          "lib/net8.0/Polly.Core.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.7.0.5801"
+          }
+        }
+      },
+      "Polly.Extensions.Http/3.0.0": {
+        "dependencies": {
+          "Polly": "8.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Polly.Extensions.Http.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Serilog/4.3.0": {
+        "runtime": {
+          "lib/net9.0/Serilog.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
+          }
+        }
+      },
+      "Serilog.AspNetCore/10.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0",
+          "Serilog.Extensions.Hosting": "10.0.0",
+          "Serilog.Formatting.Compact": "3.0.0",
+          "Serilog.Settings.Configuration": "10.0.0",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Debug": "3.0.0",
+          "Serilog.Sinks.File": "7.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Serilog.AspNetCore.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Serilog.Extensions.Hosting/10.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0",
+          "Serilog.Extensions.Logging": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Serilog.Extensions.Hosting.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Serilog.Extensions.Logging/10.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net10.0/Serilog.Extensions.Logging.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Serilog.Formatting.Compact/3.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Formatting.Compact.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Serilog.Settings.Configuration/10.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyModel": "10.0.0",
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net10.0/Serilog.Settings.Configuration.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Serilog.Sinks.Console/6.1.1": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Sinks.Console.dll": {
+            "assemblyVersion": "6.1.1.0",
+            "fileVersion": "6.1.1.0"
+          }
+        }
+      },
+      "Serilog.Sinks.Debug/3.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Sinks.Debug.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Serilog.Sinks.File/7.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.0"
+        },
+        "runtime": {
+          "lib/net9.0/Serilog.Sinks.File.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.0.0"
+          }
+        }
+      },
+      "Starward.NativeLib/0.3.1": {
+        "dependencies": {
+          "ZstdSharp.Port": "0.8.8"
+        },
+        "runtime": {
+          "lib/net9.0-windows7.0/Starward.NativeLib.dll": {
+            "assemblyVersion": "0.3.1.0",
+            "fileVersion": "0.3.1.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/7z.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "24.9.0.0"
+          },
+          "runtimes/win-arm64/native/Snap.HPatch.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/7z.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "24.9.0.0"
+          },
+          "runtimes/win-x64/native/Snap.HPatch.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/7z.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "24.9.0.0"
+          },
+          "runtimes/win-x86/native/Snap.HPatch.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Vanara.Core/5.0.5": {
+        "runtime": {
+          "lib/net10.0-windows7.0/Vanara.Core.dll": {
+            "assemblyVersion": "5.0.5.0",
+            "fileVersion": "5.0.5.0"
+          }
+        },
+        "resources": {
+          "lib/net10.0-windows7.0/fr/Vanara.Core.resources.dll": {
+            "locale": "fr"
+          }
+        }
+      },
+      "Vanara.PInvoke.Kernel32/5.0.5": {
+        "dependencies": {
+          "Vanara.Core": "5.0.5"
+        },
+        "runtime": {
+          "lib/net10.0-windows7.0/Vanara.PInvoke.Kernel32.dll": {
+            "assemblyVersion": "5.0.5.0",
+            "fileVersion": "5.0.5.0"
+          }
+        }
+      },
+      "ZstdSharp.Port/0.8.8": {
+        "runtime": {
+          "lib/net9.0/ZstdSharp.dll": {
+            "assemblyVersion": "0.8.8.0",
+            "fileVersion": "0.8.8.0"
+          }
+        }
+      },
+      "Starward.Core/1.0.0": {
+        "runtime": {
+          "Starward.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de-DE/Starward.Core.resources.dll": {
+            "locale": "de-DE"
+          },
+          "en-US/Starward.Core.resources.dll": {
+            "locale": "en-US"
+          },
+          "es-ES/Starward.Core.resources.dll": {
+            "locale": "es-ES"
+          },
+          "it-IT/Starward.Core.resources.dll": {
+            "locale": "it-IT"
+          },
+          "ja-JP/Starward.Core.resources.dll": {
+            "locale": "ja-JP"
+          },
+          "ko-KR/Starward.Core.resources.dll": {
+            "locale": "ko-KR"
+          },
+          "ru-RU/Starward.Core.resources.dll": {
+            "locale": "ru-RU"
+          },
+          "th-TH/Starward.Core.resources.dll": {
+            "locale": "th-TH"
+          },
+          "vi-VN/Starward.Core.resources.dll": {
+            "locale": "vi-VN"
+          },
+          "zh-CN/Starward.Core.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "zh-HK/Starward.Core.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "zh-TW/Starward.Core.resources.dll": {
+            "locale": "zh-TW"
+          }
+        }
+      },
+      "Starward.Setup.Core/1.0.0": {
+        "runtime": {
+          "Starward.Setup.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Starward.RPC/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Google.Protobuf/3.31.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gSnJbUmGiOTdWddPhqzrEscHq9Ls6sqRDPB9WptckyjTUyx70JOOAaDLkFff8gManZNN3hllQ4aQInnQyq/Z/A==",
+      "path": "google.protobuf/3.31.1",
+      "hashPath": "google.protobuf.3.31.1.nupkg.sha512"
+    },
+    "Grpc.AspNetCore/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ASbJbdtCUlGiKxe9NsN/QeG1PdibYoN0pEgP9U87cvS6HV0XsT+VdO/g2M6Ri8zZURfX5c7MBTaFVP/YCrC72A==",
+      "path": "grpc.aspnetcore/2.80.0",
+      "hashPath": "grpc.aspnetcore.2.80.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lbK7z1sZP5imPdQ035f/CZ61iIaBWouY6A580E9JNo7vzXYX/Qo+GQtSjOzhP9VFbxk7mtLoMhn/v1fT2U7kTw==",
+      "path": "grpc.aspnetcore.server/2.80.0",
+      "hashPath": "grpc.aspnetcore.server.2.80.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server.ClientFactory/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7JdfxQZv/pO9qU5Ild2mrkzYA7PmVGDKVmWqKVCZNRSDN/RluRN4S4utYgBSwAcYgUBWQDHNb1Ll7wm3BdHfqw==",
+      "path": "grpc.aspnetcore.server.clientfactory/2.80.0",
+      "hashPath": "grpc.aspnetcore.server.clientfactory.2.80.0.nupkg.sha512"
+    },
+    "Grpc.Core.Api/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i/8s+MOrYa6n7BmZ5bilcbHk+EMJDQHm2MKLhwGAT+urQqlZ6cpjvSivYvuULjebuX+UKieLYZbLRCmVQxFRkw==",
+      "path": "grpc.core.api/2.80.0",
+      "hashPath": "grpc.core.api.2.80.0.nupkg.sha512"
+    },
+    "Grpc.Net.Client/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I1Aa24nTRMHqx0pmQfvthFsOpejquDjiJV6092KBqjw6EEr3wA9CMXlrdkoEgHartOiJrpKyZiQRl7n0NVlfBg==",
+      "path": "grpc.net.client/2.80.0",
+      "hashPath": "grpc.net.client.2.80.0.nupkg.sha512"
+    },
+    "Grpc.Net.ClientFactory/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YtY1DWID2phwiGc8qBG7+wf00Do5jE7BkJgCc6nbu5b50OsD89mSd73oCE8fCnUo7IjtDAEYFOYI3NSzgn28gw==",
+      "path": "grpc.net.clientfactory/2.80.0",
+      "hashPath": "grpc.net.clientfactory.2.80.0.nupkg.sha512"
+    },
+    "Grpc.Net.Common/2.80.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E2ERsx+9IXlry4yjBl8btx0XMIKzymGNSvX5jmBS/uSwYyYDoKIDcIREyLqFLvd8vcJdcoRlycpvn9YRXutFpQ==",
+      "path": "grpc.net.common/2.80.0",
+      "hashPath": "grpc.net.common.2.80.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyModel/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RFYJR7APio/BiqdQunRq6DB+nDB6nc2qhHr77mlvZ0q0BT8PubMXN7XicmfzCbrDE/dzhBnUKBRXLTcqUiZDGg==",
+      "path": "microsoft.extensions.dependencymodel/10.0.0",
+      "hashPath": "microsoft.extensions.dependencymodel.10.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Http.Polly/10.0.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bwfSg08DwmF6sR3HMLBLklxfHSoIgQFTsBqY+omxbNqVDPtjoGiWqMcZ5r+gSXRNEaptsXdVeN3QwHAKPspB+w==",
+      "path": "microsoft.extensions.http.polly/10.0.9",
+      "hashPath": "microsoft.extensions.http.polly.10.0.9.nupkg.sha512"
+    },
+    "Polly/8.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0qR4f0OR8FeCAfLWcfwzAM7w6EmpUgwa22PgxKjcL25dEAto7sKpQQXbtxp38vVvK+V3RFkh/TeI7g/iUdoYIQ==",
+      "path": "polly/8.7.0",
+      "hashPath": "polly.8.7.0.nupkg.sha512"
+    },
+    "Polly.Core/8.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BS2t+nsBer16PIebCEPNBK5fgMisADQyRCd7K+BgkMWpFmSaiYE+rVVNpFhGRqUkJmNSLmw0uCNzHHWfgml28Q==",
+      "path": "polly.core/8.7.0",
+      "hashPath": "polly.core.8.7.0.nupkg.sha512"
+    },
+    "Polly.Extensions.Http/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-drrG+hB3pYFY7w1c3BD+lSGYvH2oIclH8GRSehgfyP5kjnFnHKQuuBhuHLv+PWyFuaTDyk/vfRpnxOzd11+J8g==",
+      "path": "polly.extensions.http/3.0.0",
+      "hashPath": "polly.extensions.http.3.0.0.nupkg.sha512"
+    },
+    "Serilog/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+cDryFR0GRhsGOnZSKwaDzRRl4MupvJ42FhCE4zhQRVanX0Jpg6WuCBk59OVhVDPmab1bB+nRykAnykYELA9qQ==",
+      "path": "serilog/4.3.0",
+      "hashPath": "serilog.4.3.0.nupkg.sha512"
+    },
+    "Serilog.AspNetCore/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-a/cNa1mY4On1oJlfGG1wAvxjp5g7OEzk/Jf/nm7NF9cWoE7KlZw1GldrifUBWm9oKibHkR7Lg/l5jy3y7ACR8w==",
+      "path": "serilog.aspnetcore/10.0.0",
+      "hashPath": "serilog.aspnetcore.10.0.0.nupkg.sha512"
+    },
+    "Serilog.Extensions.Hosting/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E7juuIc+gzoGxgzFooFgAV8g9BfiSXNKsUok9NmEpyAXg2odkcPsMa/Yo4axkJRlh0se7mkYQ1GXDaBemR+b6w==",
+      "path": "serilog.extensions.hosting/10.0.0",
+      "hashPath": "serilog.extensions.hosting.10.0.0.nupkg.sha512"
+    },
+    "Serilog.Extensions.Logging/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vx0kABKl2dWbBhhqAfTOk53/i8aV/5VaT3a6il9gn72Wqs2pM7EK2OB6No6xdqK2IaY6Zf9gdjLuK9BVa2rT+Q==",
+      "path": "serilog.extensions.logging/10.0.0",
+      "hashPath": "serilog.extensions.logging.10.0.0.nupkg.sha512"
+    },
+    "Serilog.Formatting.Compact/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wQsv14w9cqlfB5FX2MZpNsTawckN4a8dryuNGbebB/3Nh1pXnROHZov3swtu3Nj5oNG7Ba+xdu7Et/ulAUPanQ==",
+      "path": "serilog.formatting.compact/3.0.0",
+      "hashPath": "serilog.formatting.compact.3.0.0.nupkg.sha512"
+    },
+    "Serilog.Settings.Configuration/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LNq+ibS1sbhTqPV1FIE69/9AJJbfaOhnaqkzcjFy95o+4U+STsta9mi97f1smgXsWYKICDeGUf8xUGzd/52/uA==",
+      "path": "serilog.settings.configuration/10.0.0",
+      "hashPath": "serilog.settings.configuration.10.0.0.nupkg.sha512"
+    },
+    "Serilog.Sinks.Console/6.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8jbqgjUyZlfCuSTaJk6lOca465OndqOz3KZP6Cryt/IqZYybyBu7GP0fE/AXBzrrQB3EBmQntBFAvMVz1COvAA==",
+      "path": "serilog.sinks.console/6.1.1",
+      "hashPath": "serilog.sinks.console.6.1.1.nupkg.sha512"
+    },
+    "Serilog.Sinks.Debug/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4BzXcdrgRX7wde9PmHuYd9U6YqycCC28hhpKonK7hx0wb19eiuRj16fPcPSVp0o/Y1ipJuNLYQ00R3q2Zs8FDA==",
+      "path": "serilog.sinks.debug/3.0.0",
+      "hashPath": "serilog.sinks.debug.3.0.0.nupkg.sha512"
+    },
+    "Serilog.Sinks.File/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fKL7mXv7qaiNBUC71ssvn/dU0k9t0o45+qm2XgKAlSt19xF+ijjxyA3R6HmCgfKEKwfcfkwWjayuQtRueZFkYw==",
+      "path": "serilog.sinks.file/7.0.0",
+      "hashPath": "serilog.sinks.file.7.0.0.nupkg.sha512"
+    },
+    "Starward.NativeLib/0.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oVQTayI8wYDW+aOdM7pbOjjvyy+bRrOQsiKv4rpJmfABqalnRZbH0n/VRHZBUYfzTg7RFvnunZv+S1Tb+nQMNg==",
+      "path": "starward.nativelib/0.3.1",
+      "hashPath": "starward.nativelib.0.3.1.nupkg.sha512"
+    },
+    "Vanara.Core/5.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e3+5FNx0tJGKXCl/2yieiiU2WoIQN3A3AO6xuKIQVhQlo45CGBrM5riU6FYDPC4iX3WBypty/h0EZL4xWV2ucA==",
+      "path": "vanara.core/5.0.5",
+      "hashPath": "vanara.core.5.0.5.nupkg.sha512"
+    },
+    "Vanara.PInvoke.Kernel32/5.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RyUEG8DN5BUttC82xTdiVz/HpCKa/zeqv2j7kNfABSj3m/3hyH9PSQdeg/fwkOY5VbIWyBegnp+2AKfYAJL3PA==",
+      "path": "vanara.pinvoke.kernel32/5.0.5",
+      "hashPath": "vanara.pinvoke.kernel32.5.0.5.nupkg.sha512"
+    },
+    "ZstdSharp.Port/0.8.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UIDFkA5DC3en3tOJ3Mof11yBx9kUQLsaeo/oFdvN6Bbkr9E9+VCqfIadHci8cu+I51K2Sl7XYWVl2R/mA75NBQ==",
+      "path": "zstdsharp.port/0.8.8",
+      "hashPath": "zstdsharp.port.0.8.8.nupkg.sha512"
+    },
+    "Starward.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Starward.Setup.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

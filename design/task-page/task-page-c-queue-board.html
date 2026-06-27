@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BSL 任务中心设计稿 C - 队列看板</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111216;
+      --panel: rgba(29, 32, 38, .88);
+      --line: rgba(255, 255, 255, .08);
+      --text: #f4f5f8;
+      --muted: #a8afba;
+      --accent: #c9d87a;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif; background: var(--bg); color: var(--text); }
+
+    main { width: min(1180px, calc(100vw - 64px)); margin: 40px auto; }
+    header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 16px; }
+    h1 { margin: 0; font-size: 30px; letter-spacing: 0; }
+    .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+    .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .lane { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); overflow: hidden; min-height: 520px; }
+    .lane-head { height: 44px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .task { margin: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.04); }
+    .task b { display: block; font-size: 15px; }
+    .task span { display: block; color: var(--muted); margin-top: 4px; font-size: 13px; }
+    .bar { margin-top: 12px; height: 6px; background: rgba(255,255,255,.12); border-radius: 999px; overflow: hidden; }
+    .bar div { width: var(--p); height: 100%; background: var(--accent); }
+    .buttons { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+    button { width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 8px; color: var(--text); background: rgba(255,255,255,.05); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>下载中心</h1>
+        <div class="sub">按状态分组，适合排查暂停、失败和残留缓存。</div>
+      </div>
+      <div><button title="清空已完成">🧹</button> <button title="刷新">↻</button></div>
+    </header>
+
+    <section class="board">
+      <div class="lane">
+        <div class="lane-head"><span>正在处理</span><span>1</span></div>
+        <article class="task">
+          <b>鸣潮</b><span>安装 / 下载中 / 72%</span>
+          <div class="bar"><div style="--p:72%"></div></div>
+          <div class="buttons"><button title="暂停">⏸</button><button title="取消">✕</button></div>
+        </article>
+      </div>
+      <div class="lane">
+        <div class="lane-head"><span>等待</span><span>2</span></div>
+        <article class="task"><b>明日方舟</b><span>更新 / 排队中</span><div class="bar"><div style="--p:0%"></div></div><div class="buttons"><button title="暂停">⏸</button><button title="取消">✕</button></div></article>
+        <article class="task"><b>绝区零</b><span>Starward 原生预下载</span><div class="bar"><div style="--p:0%"></div></div><div class="buttons"><button title="停止">■</button></div></article>
+      </div>
+      <div class="lane">
+        <div class="lane-head"><span>暂停</span><span>1</span></div>
+        <article class="task"><b>终末地</b><span>修复 / 已暂停 / 36%</span><div class="bar"><div style="--p:36%"></div></div><div class="buttons"><button title="继续">▶</button><button title="取消">✕</button></div></article>
+      </div>
+      <div class="lane">
+        <div class="lane-head"><span>历史</span><span>3</span></div>
+        <article class="task"><b>鸣潮预下载</b><span>已完成 / 缓存保留</span><div class="buttons"><button title="清理缓存">🧹</button><button title="移除">🗑</button></div></article>
+        <article class="task"><b>明日方舟修复</b><span>失败 / 可重试</span><div class="buttons"><button title="重试">↻</button><button title="移除">🗑</button></div></article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

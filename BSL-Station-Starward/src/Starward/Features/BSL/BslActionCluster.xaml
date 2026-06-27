@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="Starward.Features.BSL.BslActionCluster"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:gameinstall="using:Starward.Features.GameInstall"
+             xmlns:gamelauncher="using:Starward.Features.GameLauncher"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:playtime="using:Starward.Features.PlayTime"
+             mc:Ignorable="d">
+
+    <Grid x:Name="Grid_Root"
+          Margin="0,0,40,0"
+          HorizontalAlignment="Right"
+          VerticalAlignment="Bottom"
+          ColumnSpacing="12"
+          Visibility="Collapsed">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <gameinstall:PreDownloadButton x:Name="Button_Predownload"
+                                       Grid.Column="0"
+                                       IsPredownloadFinished="{x:Bind IsPredownloadFinished, Mode=OneWay}"
+                                       Visibility="Collapsed" />
+
+        <playtime:PlayTimeButton x:Name="Button_PlayTime"
+                                 Grid.Column="1" />
+
+        <gamelauncher:StartGameButton x:Name="Button_StartGame"
+                                      Grid.Column="2"
+                                      HorizontalAlignment="Right" />
+
+    </Grid>
+</UserControl>

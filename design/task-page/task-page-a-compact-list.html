@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BSL 任务中心设计稿 A - 紧凑列表</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101318;
+      --panel: rgba(30, 34, 42, .82);
+      --panel-2: rgba(24, 28, 36, .78);
+      --line: rgba(255, 255, 255, .09);
+      --text: #f4f6fb;
+      --muted: #a7afbd;
+      --accent: #67d5b5;
+      --warning: #f2bd5c;
+      --danger: #ff7a7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif;
+      background: radial-gradient(circle at 18% 10%, rgba(103, 213, 181, .18), transparent 32%), var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 64px));
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 18px;
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .sub { margin-top: 4px; color: var(--muted); font-size: 14px; }
+
+    .actions, .row-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .06);
+      font-size: 16px;
+    }
+
+    button.primary { background: rgba(103, 213, 181, .16); border-color: rgba(103, 213, 181, .35); }
+    button.danger { color: var(--danger); }
+    button:disabled { opacity: .36; }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .section-title {
+      height: 42px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 170px 92px auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      min-height: 74px;
+    }
+
+    .task:last-child { border-bottom: 0; }
+    .task.active { background: rgba(103, 213, 181, .08); }
+
+    .name { font-weight: 650; }
+    .meta { margin-top: 3px; color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .bar {
+      height: 6px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .fill { height: 100%; width: var(--p); background: var(--accent); }
+    .percent { margin-top: 6px; color: var(--muted); text-align: right; font-size: 12px; }
+
+    .state {
+      justify-self: start;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .07);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .state.running { color: var(--accent); }
+    .state.paused { color: var(--warning); }
+    .state.failed { color: var(--danger); }
+
+    aside { display: grid; gap: 18px; align-content: start; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+    .stat { padding: 16px; background: var(--panel-2); }
+    .stat b { display: block; font-size: 24px; }
+    .stat span { color: var(--muted); font-size: 12px; }
+
+    .history {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .history:last-child { border-bottom: 0; }
+    .history .meta { white-space: normal; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>下载中心</h1>
+        <div class="sub">下载、更新、预下载和修复任务统一排队处理。</div>
+      </div>
+      <div class="actions">
+        <button title="清空已完成">🧹</button>
+        <button class="primary" title="刷新">↻</button>
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="section-title"><span>当前与队列</span><span>单任务执行</span></div>
+      <article class="task active">
+        <div>
+          <div class="name">鸣潮</div>
+          <div class="meta">BSL 队列 / 安装 / 48.2 GB of 67.4 GB / 18.6 MB/s</div>
+        </div>
+        <div>
+          <div class="bar"><div class="fill" style="--p:72%"></div></div>
+          <div class="percent">72%</div>
+        </div>
+        <span class="state running">下载中</span>
+        <div class="row-actions">
+          <button title="暂停">⏸</button>
+          <button title="继续" disabled>▶</button>
+          <button class="danger" title="取消">✕</button>
+          <button title="重试" disabled>↻</button>
+        </div>
+      </article>
+      <article class="task">
+        <div>
+          <div class="name">明日方舟</div>
+          <div class="meta">BSL 队列 / 更新 / 等待前置任务完成</div>
+        </div>
+        <div>
+          <div class="bar"><div class="fill" style="--p:0%"></div></div>
+          <div class="percent">0%</div>
+        </div>
+        <span class="state">排队中</span>
+        <div class="row-actions">
+          <button title="暂停">⏸</button>
+          <button title="继续" disabled>▶</button>
+          <button class="danger" title="取消">✕</button>
+          <button title="移除" disabled>🗑</button>
+        </div>
+      </article>
+      <article class="task">
+        <div>
+          <div class="name">明日方舟：终末地</div>
+          <div class="meta">BSL 队列 / 修复 / 用户已暂停</div>
+        </div>
+        <div>
+          <div class="bar"><div class="fill" style="--p:36%"></div></div>
+          <div class="percent">36%</div>
+        </div>
+        <span class="state paused">已暂停</span>
+        <div class="row-actions">
+          <button title="暂停" disabled>⏸</button>
+          <button class="primary" title="继续">▶</button>
+          <button class="danger" title="取消">✕</button>
+          <button title="移除" disabled>🗑</button>
+        </div>
+      </article>
+    </section>
+
+    <aside>
+      <section class="panel stats">
+        <div class="stat"><b>1</b><span>正在处理</span></div>
+        <div class="stat"><b>2</b><span>等待队列</span></div>
+        <div class="stat"><b>3</b><span>历史</span></div>
+      </section>
+      <section class="panel">
+        <div class="section-title"><span>历史</span><span>最近结果</span></div>
+        <div class="history">
+          <div class="name">鸣潮预下载</div>
+          <div class="meta">已完成 / 缓存保留</div>
+        </div>
+        <div class="history">
+          <div class="name">明日方舟修复</div>
+          <div class="meta">失败 / 可重试</div>
+        </div>
+      </section>
+    </aside>
+  </main>
+</body>
+</html>

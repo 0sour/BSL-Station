@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Starward.Features.BSL.BslGameSettingDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:sc="using:Starward.Controls"
+               x:DefaultBindMode="OneWay"
+               Background="{ThemeResource CustomAcrylicBrush}"
+               BorderThickness="0"
+               CornerRadius="8"
+               Style="{ThemeResource DefaultContentDialogStyle}"
+               mc:Ignorable="d">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">1200</x:Double>
+        <Thickness x:Key="ContentDialogPadding">0</Thickness>
+        <StaticResource x:Key="ContentDialogSmokeFill" ResourceKey="ControlFillColorTransparentBrush" />
+        <StaticResource x:Key="ContentDialogTopOverlay" ResourceKey="ControlFillColorTransparentBrush" />
+        <DataTemplate x:Key="PackageGroupsDataTemplate">
+            <Expander HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch"
+                      Background="#40000000">
+                <Expander.Header>
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Text="{Binding Name}" />
+                        <Button HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Click="Button_CopyPackageUrl_Click"
+                                Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                            <FontIcon FontSize="20"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                      Glyph="&#xE71B;" />
+                        </Button>
+                    </Grid>
+                </Expander.Header>
+                <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="16" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock MaxLines="1"
+                                           Text="{Binding FileName}"
+                                           TextTrimming="CharacterEllipsis" />
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                    <FontIcon FontSize="12"
+                                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                              Glyph="&#xF012;" />
+                                    <TextBlock Width="80"
+                                               FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               Text="{Binding PackageSizeString}" />
+                                    <FontIcon FontSize="12"
+                                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                              Glyph="&#xE95E;" />
+                                    <TextBlock FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               Text="MD5" />
+                                    <TextBlock FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               IsTextSelectionEnabled="True"
+                                               Text="{Binding Md5}" />
+                                </StackPanel>
+                                <Button Grid.RowSpan="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Click="Button_CopyPackageUrl_Click"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                                    <FontIcon FontSize="20"
+                                              Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                              Glyph="&#xE71B;" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Expander>
+        </DataTemplate>
+    </ContentDialog.Resources>
+
+    <Grid Width="800"
+          Height="480"
+          Padding="24,24,24,0">
+
+        <NavigationView IsBackButtonVisible="Collapsed"
+                        IsPaneToggleButtonVisible="False"
+                        IsSettingsVisible="False"
+                        ItemInvoked="NavigationView_ItemInvoked"
+                        OpenPaneLength="200"
+                        PaneDisplayMode="Left">
+            <NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
+                <Thickness x:Key="NavigationViewContentMargin">0</Thickness>
+                <Thickness x:Key="NavigationViewHeaderMargin">0</Thickness>
+                <x:Double x:Key="PaneToggleButtonHeight">0</x:Double>
+            </NavigationView.Resources>
+
+            <NavigationView.PaneHeader>
+                <TextBlock Margin="16,0,0,8"
+                           FontSize="20"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Text="游戏设置" />
+            </NavigationView.PaneHeader>
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="基本信息"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    IsSelected="True"
+                                    Tag="0" />
+                <NavigationViewItem Content="启动参数"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Tag="1" />
+                <NavigationViewItem Content="缓存"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Tag="2" />
+                <NavigationViewItem Content="游戏包体"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Tag="3" />
+            </NavigationView.MenuItems>
+
+            <FlipView x:Name="FlipView_Settings"
+                      Margin="24,24,0,0"
+                      Background="Transparent"
+                      Loaded="FlipView_Settings_Loaded">
+                <FlipView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </FlipView.ItemsPanel>
+
+                <FlipViewItem>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,8,0" Spacing="12">
+
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Width="40"
+                                      Height="40"
+                                      CornerRadius="8">
+                                    <sc:CachedImage Width="40"
+                                                    Height="40"
+                                                    Source="{x:Bind IconImage, FallbackValue={x:Null}}" />
+                                </Grid>
+
+                                <StackPanel Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Spacing="2">
+                                    <TextBlock FontSize="16" Text="{x:Bind GameName}" />
+                                    <TextBlock FontSize="12"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               Text="{x:Bind StatusText}" />
+                                </StackPanel>
+
+                                <Button Grid.Column="2"
+                                        Height="36"
+                                        Command="{x:Bind LocateGameCommand}"
+                                        CornerRadius="8"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                                        Visibility="{x:Bind NoInstallPathVisibility}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Width="20"
+                                                  Height="20"
+                                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                  Glyph="&#xE838;" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="定位游戏" />
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Grid.Column="2"
+                                        Height="36"
+                                        Command="{x:Bind ShowUninstallWarningCommand}"
+                                        CornerRadius="8"
+                                        IsEnabled="{x:Bind CanUninstall}"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                                        Visibility="{x:Bind InstallPathVisibility}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Width="20"
+                                                  Height="20"
+                                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                  Glyph="&#xE74D;" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="卸载游戏" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+
+                            <Grid x:Name="Grid_UninstallWarning"
+                                  ColumnSpacing="12"
+                                  Visibility="{x:Bind UninstallWarningVisibility}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center"
+                                           FontSize="12"
+                                           Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                           Text="卸载会删除当前安装目录中的游戏文件。请确认目录无误后继续。"
+                                           TextWrapping="Wrap" />
+                                <Button Grid.Column="1" Command="{x:Bind UninstallGameCommand}">
+                                    <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}" Text="确认卸载" />
+                                </Button>
+                            </Grid>
+
+                            <TextBlock FontSize="12"
+                                       Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                       Text="{x:Bind ErrorMessage}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{x:Bind ErrorVisibility}" />
+
+                            <TextBlock FontSize="12"
+                                       Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                       Text="{x:Bind WarningMessage}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{x:Bind WarningVisibility}" />
+
+                            <Grid Height="40"
+                                  CornerRadius="8"
+                                  Visibility="{x:Bind InstallPathVisibility}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button Height="40"
+                                        Padding="0"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        BorderThickness="0"
+                                        Command="{x:Bind OpenInstallGameFolderCommand}"
+                                        CornerRadius="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="16,0,16,1"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                   IsTextTrimmedChanged="TextBlock_IsTextTrimmedChanged"
+                                                   MaxLines="2"
+                                                   Text="{x:Bind InstallPath}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   TextWrapping="Wrap" />
+                                        <FontIcon Grid.Column="1"
+                                                  Margin="16,0,16,0"
+                                                  FontSize="14"
+                                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                  Glyph="&#xE8A7;" />
+                                    </Grid>
+                                </Button>
+                                <Button Grid.Column="1"
+                                        Width="40"
+                                        Height="40"
+                                        Padding="0"
+                                        BorderThickness="0"
+                                        Command="{x:Bind ClearInstallPathCommand}"
+                                        CornerRadius="0">
+                                    <FontIcon FontSize="14"
+                                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                              Glyph="&#xE711;" />
+                                </Button>
+                            </Grid>
+
+                            <Grid RowSpacing="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="版本" />
+                                <TextBlock Grid.Column="1"
+                                           IsTextSelectionEnabled="True"
+                                           Text="{x:Bind VersionText}"
+                                           TextWrapping="Wrap" />
+
+                                <TextBlock Grid.Row="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           Text="能力" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{x:Bind CapabilityText}"
+                                           TextWrapping="Wrap" />
+
+                                <TextBlock Grid.Row="2"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           Text="启动程序" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           IsTextSelectionEnabled="True"
+                                           Text="{x:Bind DefaultExecutablePathText}"
+                                           TextWrapping="Wrap" />
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Button Height="36"
+                                        CornerRadius="8"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        IsEnabled="False"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                                        Visibility="{x:Bind GameSizeVisibility}">
+                                    <TextBlock>
+                                        <Run Text="大小 " />
+                                        <Run Text="{x:Bind GameSize}" />
+                                    </TextBlock>
+                                </Button>
+
+                                <Button Height="36"
+                                        Command="{x:Bind LocateGameCommand}"
+                                        CornerRadius="8"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                                        Visibility="{x:Bind InstallPathVisibility}">
+                                    <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Text="重新定位" />
+                                </Button>
+
+                                <Button Height="36"
+                                        Command="{x:Bind RepairGameCommand}"
+                                        CornerRadius="8"
+                                        IsEnabled="{x:Bind CanRepair}"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                                    <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Text="修复游戏" />
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </FlipViewItem>
+
+                <FlipViewItem>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,8,0" Spacing="12">
+
+                            <TextBlock Text="命令行参数" />
+
+                            <TextBox MinWidth="320"
+                                     HorizontalAlignment="Left"
+                                     IsEnabled="{x:Bind SupportsLaunchArguments}"
+                                     IsSpellCheckEnabled="False"
+                                     Text="{x:Bind LaunchArgument, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     TextWrapping="Wrap" />
+
+                            <Button Height="36"
+                                    Command="{x:Bind SaveLaunchArgumentCommand}"
+                                    CornerRadius="8"
+                                    IsEnabled="{x:Bind SupportsLaunchArguments}"
+                                    Style="{ThemeResource AccentButtonStyle}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE74E;" />
+                                    <TextBlock Text="保存启动参数" />
+                                </StackPanel>
+                            </Button>
+
+                            <TextBlock FontSize="12"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       Text="参数会在从 BSL-Station 启动游戏时追加到目标程序。"
+                                       TextWrapping="Wrap" />
+
+                            <ToggleSwitch Margin="0,12,0,-4"
+                                          FontSize="14"
+                                          IsEnabled="{x:Bind SupportsCustomExecutable}"
+                                          IsOn="{x:Bind UseCustomExecutable, Mode=TwoWay}"
+                                          OffContent="自定义启动程序"
+                                          OnContent="自定义启动程序" />
+
+                            <Grid ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Height="36"
+                                        BorderThickness="0"
+                                        Command="{x:Bind ChangeCustomExecutableCommand}"
+                                        CornerRadius="8"
+                                        IsEnabled="{x:Bind CustomExecutableControlsEnabled}"
+                                        Style="{ThemeResource AccentButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE7FC;" />
+                                        <TextBlock Text="选择" />
+                                    </StackPanel>
+                                </Button>
+
+                                <Grid Grid.Column="1"
+                                      Height="36"
+                                      HorizontalAlignment="Left"
+                                      CornerRadius="8"
+                                      Visibility="{x:Bind CustomExecutablePathVisibility}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Height="36"
+                                            Padding="16,0,8,1"
+                                            BorderThickness="0"
+                                            Command="{x:Bind OpenCustomExecutableFolderCommand}"
+                                            CornerRadius="0">
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                   IsTextTrimmedChanged="TextBlock_IsTextTrimmedChanged"
+                                                   MaxLines="2"
+                                                   Text="{x:Bind CustomExecutablePath}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   TextWrapping="Wrap" />
+                                    </Button>
+
+                                    <Button Grid.Column="1"
+                                            Height="36"
+                                            BorderThickness="0"
+                                            Command="{x:Bind DeleteCustomExecutablePathCommand}"
+                                            CornerRadius="0">
+                                        <FontIcon Margin="0,2,2,0"
+                                                  FontSize="16"
+                                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                  Glyph="&#xE711;" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            <TextBlock FontSize="12"
+                                       Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                       Text="{x:Bind InvalidCustomExecutableMessage}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{x:Bind InvalidCustomExecutableVisibility}" />
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </FlipViewItem>
+
+                <FlipViewItem>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,8,0" Spacing="12">
+
+                            <TextBlock FontSize="16" Text="下载缓存" />
+
+                            <Grid RowSpacing="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="状态" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{x:Bind PredownloadCacheStatusText}"
+                                           TextWrapping="Wrap" />
+
+                                <TextBlock Grid.Row="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           Text="大小" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{x:Bind PredownloadCacheSizeText}" />
+
+                                <TextBlock Grid.Row="2"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           Text="位置" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           IsTextSelectionEnabled="True"
+                                           Text="{x:Bind PredownloadCachePathText}"
+                                           TextWrapping="Wrap" />
+
+                                <Button Grid.RowSpan="3"
+                                        Grid.Column="2"
+                                        Height="36"
+                                        Command="{x:Bind OpenPredownloadCacheFolderCommand}"
+                                        CornerRadius="8"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                                        Visibility="{x:Bind PredownloadCachePathVisibility}">
+                                    <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Text="打开" />
+                                </Button>
+                                <Button Grid.RowSpan="3"
+                                        Grid.Column="2"
+                                        Height="36"
+                                        Margin="72,0,0,0"
+                                        HorizontalAlignment="Right"
+                                        Command="{x:Bind ClearPredownloadCacheCommand}"
+                                        CornerRadius="8"
+                                        IsEnabled="{x:Bind CanClearPredownloadCache}"
+                                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                                        Visibility="{x:Bind PredownloadCachePathVisibility}">
+                                    <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}" Text="清理" />
+                                </Button>
+                            </Grid>
+
+                            <TextBlock Margin="0,12,0,0"
+                                       FontSize="16"
+                                       Text="残留缓存" />
+
+                            <TextBlock FontSize="12"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       Text="更新或下载后处理失败保留的缓存会显示在这里，可以按任务清理。"
+                                       TextWrapping="Wrap" />
+
+                            <Border Padding="16"
+                                    Background="#40000000"
+                                    CornerRadius="8"
+                                    Visibility="{x:Bind NoResidualCacheVisibility}">
+                                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="暂无需要清理的残留缓存" />
+                            </Border>
+
+                            <ItemsControl ItemsSource="{x:Bind ResidualCacheTasks}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Spacing="8" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="16"
+                                              Background="#40000000"
+                                              ColumnSpacing="12"
+                                              CornerRadius="8">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="{Binding StatusText}" />
+                                                <TextBlock FontSize="12"
+                                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                           Text="{Binding CleanupHint}"
+                                                           TextWrapping="Wrap" />
+                                                <TextBlock FontSize="12"
+                                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                           IsTextSelectionEnabled="True"
+                                                           Text="{Binding ResidualCachePath}"
+                                                           TextWrapping="Wrap" />
+                                            </StackPanel>
+                                            <Button Grid.Column="1"
+                                                    Height="36"
+                                                    Click="CleanupResidualCacheButton_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    CornerRadius="8"
+                                                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                                                <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Text="清理" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </FlipViewItem>
+
+                <FlipViewItem>
+                    <StackPanel Spacing="12">
+                        <Border Padding="16"
+                                Background="#40000000"
+                                CornerRadius="8">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{x:Bind PackageSummaryText}"
+                                           TextWrapping="Wrap" />
+                                <TextBlock FontSize="12"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           Text="{x:Bind PackageUsageHintText}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock FontSize="12"
+                                   Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                   Text="{x:Bind PackageErrorMessage}"
+                                   TextWrapping="Wrap"
+                                   Visibility="{x:Bind PackageErrorVisibility}" />
+
+                        <Pivot>
+                            <Pivot.Resources>
+                                <Thickness x:Key="PivotItemMargin">0,8,0,0</Thickness>
+                                <Thickness x:Key="PivotHeaderItemMargin">0,0,24,0</Thickness>
+                                <Style BasedOn="{StaticResource DefaultPivotHeaderItemStyle}" TargetType="PivotHeaderItem">
+                                    <Setter Property="Height" Value="28" />
+                                    <Setter Property="FontSize" Value="16" />
+                                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                                </Style>
+                            </Pivot.Resources>
+
+                            <PivotItem Margin="0,-8,0,0" Header="{x:Bind LatestPackageHeader}">
+                                <ScrollViewer>
+                                    <ItemsControl Margin="0,0,8,0"
+                                                  ItemTemplate="{StaticResource PackageGroupsDataTemplate}"
+                                                  ItemsSource="{x:Bind LatestPackageGroups}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Spacing="8" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </PivotItem>
+
+                            <PivotItem Margin="0,-8,0,0" Header="{x:Bind PredownloadPackageHeader}">
+                                <ScrollViewer>
+                                    <ItemsControl Margin="0,0,8,0"
+                                                  ItemTemplate="{StaticResource PackageGroupsDataTemplate}"
+                                                  ItemsSource="{x:Bind PredownloadPackageGroups}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Spacing="8" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </PivotItem>
+                        </Pivot>
+                    </StackPanel>
+                </FlipViewItem>
+
+            </FlipView>
+        </NavigationView>
+
+        <Button Width="32"
+                Height="32"
+                Margin="-20"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Command="{x:Bind CloseCommand}"
+                CornerRadius="8"
+                Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+            <FontIcon FontSize="16"
+                      Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                      Glyph="&#xE711;"
+                      IsTextScaleFactorEnabled="False" />
+        </Button>
+
+    </Grid>
+</ContentDialog>

@@ -1,0 +1,33 @@
+﻿using Starward.Core.JsonConverter;
+using System.Text.Json.Serialization;
+
+namespace Starward.Core.GameRecord.StarRail.PureFiction;
+
+public class PureFictionMeta
+{
+
+    [JsonPropertyName("schedule_id")]
+    public int ScheduleId { get; set; }
+
+    [JsonPropertyName("begin_time")]
+    [JsonConverter(typeof(DateTimeObjectJsonConverter))]
+    public DateTime BeginTime { get; set; }
+
+    [JsonPropertyName("end_time")]
+    [JsonConverter(typeof(DateTimeObjectJsonConverter))]
+    public DateTime EndTime { get; set; }
+
+    [JsonPropertyName("status")]
+    public string Status { get; set; }
+
+    [JsonPropertyName("name_mi18n")]
+    public string Name { get; set; }
+
+
+    [JsonExtensionData]
+    public Dictionary<string, object>? ExtensionData { get; set; }
+
+}
+
+
+

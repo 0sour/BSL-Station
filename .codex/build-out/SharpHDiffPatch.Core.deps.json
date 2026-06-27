@@ -1,0 +1,57 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "SharpHDiffPatch.Core/2.3.4": {
+        "dependencies": {
+          "Hi3Helper.ZstdNet": "1.6.5",
+          "ZstdSharp.Port": "0.8.8"
+        },
+        "runtime": {
+          "SharpHDiffPatch.Core.dll": {}
+        }
+      },
+      "Hi3Helper.ZstdNet/1.6.5": {
+        "runtime": {
+          "lib/net9.0/Hi3Helper.ZstdNet.dll": {
+            "assemblyVersion": "1.6.5.0",
+            "fileVersion": "1.6.5.0"
+          }
+        }
+      },
+      "ZstdSharp.Port/0.8.8": {
+        "runtime": {
+          "lib/net9.0/ZstdSharp.dll": {
+            "assemblyVersion": "0.8.8.0",
+            "fileVersion": "0.8.8.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SharpHDiffPatch.Core/2.3.4": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hi3Helper.ZstdNet/1.6.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Voe4Vi/kcUR+/33mOIKcJlP73oK9iauA2MuHXB0IHDvrbzT02L/2tfyTe621904LzN2zaML7JGKnOOLzuzmFQ==",
+      "path": "hi3helper.zstdnet/1.6.5",
+      "hashPath": "hi3helper.zstdnet.1.6.5.nupkg.sha512"
+    },
+    "ZstdSharp.Port/0.8.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UIDFkA5DC3en3tOJ3Mof11yBx9kUQLsaeo/oFdvN6Bbkr9E9+VCqfIadHci8cu+I51K2Sl7XYWVl2R/mA75NBQ==",
+      "path": "zstdsharp.port/0.8.8",
+      "hashPath": "zstdsharp.port.0.8.8.nupkg.sha512"
+    }
+  }
+}

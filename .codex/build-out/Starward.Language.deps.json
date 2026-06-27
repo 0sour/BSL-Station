@@ -1,0 +1,58 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Starward.Language/1.0.0": {
+        "runtime": {
+          "Starward.Language.dll": {}
+        },
+        "resources": {
+          "de-DE/Starward.Language.resources.dll": {
+            "locale": "de-DE"
+          },
+          "es-ES/Starward.Language.resources.dll": {
+            "locale": "es-ES"
+          },
+          "it-IT/Starward.Language.resources.dll": {
+            "locale": "it-IT"
+          },
+          "ja-JP/Starward.Language.resources.dll": {
+            "locale": "ja-JP"
+          },
+          "ko-KR/Starward.Language.resources.dll": {
+            "locale": "ko-KR"
+          },
+          "ru-RU/Starward.Language.resources.dll": {
+            "locale": "ru-RU"
+          },
+          "th-TH/Starward.Language.resources.dll": {
+            "locale": "th-TH"
+          },
+          "vi-VN/Starward.Language.resources.dll": {
+            "locale": "vi-VN"
+          },
+          "zh-CN/Starward.Language.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "zh-HK/Starward.Language.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "zh-TW/Starward.Language.resources.dll": {
+            "locale": "zh-TW"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Starward.Language/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

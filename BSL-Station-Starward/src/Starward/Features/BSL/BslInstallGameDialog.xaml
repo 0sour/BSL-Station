@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Starward.Features.BSL.BslInstallGameDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               x:DefaultBindMode="OneWay"
+               Background="{ThemeResource CustomAcrylicBrush}"
+               BorderThickness="0"
+               CornerRadius="8"
+               Style="{ThemeResource DefaultContentDialogStyle}"
+               mc:Ignorable="d">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">1200</x:Double>
+        <Thickness x:Key="ContentDialogPadding">0</Thickness>
+        <StaticResource x:Key="ContentDialogSmokeFill" ResourceKey="ControlFillColorTransparentBrush" />
+        <StaticResource x:Key="ContentDialogTopOverlay" ResourceKey="ControlFillColorTransparentBrush" />
+    </ContentDialog.Resources>
+
+    <Grid Width="560" Padding="24">
+        <StackPanel>
+            <TextBlock FontSize="18"
+                       FontWeight="Bold"
+                       IsTextScaleFactorEnabled="False"
+                       Text="{x:Bind DialogTitle}" />
+
+            <Grid Height="36"
+                  Margin="0,16,0,0"
+                  Background="{ThemeResource DateTimePickerFlyoutButtonBackgroundPointerOver}"
+                  CornerRadius="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="TextBlock_InstallationPath"
+                           Margin="12,4,12,4"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           IsTextTrimmedChanged="TextBlock_IsTextTrimmedChanged"
+                           MaxLines="2"
+                           Text="{x:Bind InstallationPath, Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap" />
+
+                <Button Grid.Column="1"
+                        Padding="12,0,12,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        Command="{x:Bind ChangeInstallationPathCommand}"
+                        CornerRadius="8"
+                        IsEnabled="{x:Bind CanChangeInstallationPath, Mode=OneWay}"
+                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                    <TextBlock FontSize="14"
+                               Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                               IsTextScaleFactorEnabled="False"
+                               Text="更改" />
+                </Button>
+            </Grid>
+
+            <Grid Margin="1,12,0,0"
+                  ColumnSpacing="16"
+                  RowSpacing="8"
+                  Visibility="{x:Bind PackageInfoVisibility, Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="88" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="版本" />
+                <TextBlock Grid.Column="1"
+                           IsTextScaleFactorEnabled="False"
+                           Text="{x:Bind VersionText, Mode=OneWay}" />
+
+                <TextBlock Grid.Row="1"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="下载大小" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           IsTextScaleFactorEnabled="False"
+                           Text="{x:Bind PackageSizeText, Mode=OneWay}" />
+
+                <TextBlock Grid.Row="2"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="需要空间" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           IsTextScaleFactorEnabled="False"
+                           Text="{x:Bind RequiredSpaceText, Mode=OneWay}" />
+
+                <TextBlock Grid.Row="3"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="可用空间" />
+                <TextBlock x:Name="TextBlock_AvailableSpace"
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           IsTextScaleFactorEnabled="False"
+                           Text="{x:Bind AvailableSpaceText, Mode=OneWay}" />
+            </Grid>
+
+            <TextBlock Margin="1,8,1,0"
+                       FontSize="12"
+                       Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                       IsTextScaleFactorEnabled="False"
+                       Text="{x:Bind HintText, Mode=OneWay}"
+                       TextWrapping="Wrap"
+                       Visibility="{x:Bind HintVisibility, Mode=OneWay}" />
+
+            <TextBlock Margin="1,8,1,0"
+                       FontSize="12"
+                       Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                       IsTextScaleFactorEnabled="False"
+                       Text="{x:Bind ErrorMessage, Mode=OneWay}"
+                       TextWrapping="Wrap"
+                       Visibility="{x:Bind ErrorVisibility, Mode=OneWay}" />
+
+            <CheckBox Margin="0,8,0,0"
+                      IsChecked="{x:Bind AutomaticallyCreateSubfolderForInstall, Mode=TwoWay}"
+                      Visibility="{x:Bind AutoCreateSubfolderVisibility, Mode=OneWay}">
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           IsTextScaleFactorEnabled="False"
+                           Text="自动创建子文件夹" />
+            </CheckBox>
+
+            <Button x:Name="Button_StartAction"
+                    Margin="0,16,0,0"
+                    HorizontalAlignment="Right"
+                    Command="{x:Bind StartActionCommand}"
+                    Content="{x:Bind StartButtonText, Mode=OneWay}"
+                    FontSize="14"
+                    IsEnabled="{x:Bind CanStartAction, Mode=OneWay}"
+                    IsTextScaleFactorEnabled="False"
+                    Style="{ThemeResource AccentButtonStyle}" />
+        </StackPanel>
+
+        <Button Width="32"
+                Height="32"
+                Margin="-20"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Command="{x:Bind CloseCommand}"
+                CornerRadius="8"
+                Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+            <FontIcon FontSize="16"
+                      Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                      Glyph="&#xE711;"
+                      IsTextScaleFactorEnabled="False" />
+        </Button>
+    </Grid>
+</ContentDialog>
